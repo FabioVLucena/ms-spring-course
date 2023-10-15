@@ -18,8 +18,8 @@ public class WorkerController {
 
 	private WorkerRepository workerRepository;
 
-	public WorkerController(WorkerRepository workRepo) {
-		this.workerRepository = workRepo;
+	public WorkerController(WorkerRepository workerRepo) {
+		this.workerRepository = workerRepo;
 	}
 	
 	@GetMapping
