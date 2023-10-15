@@ -1,34 +1,22 @@
 package com.aeon.hrpayroll.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.aeon.hrpayroll.entity.Payment;
 import com.aeon.hrpayroll.entity.Worker;
+import com.aeon.hrpayroll.feignclient.WorkerFeignClient;
 
 @Service
 public class PaymentService {
 
-	@Value("${hr-worker.host}")
-	private String HR_WORKER_HOST;
+	private WorkerFeignClient workerClient;
 	
-	private RestTemplate restTemplate;
-	
-	public PaymentService(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
+	public PaymentService(WorkerFeignClient workerFeignClient) {
+		this.workerClient = workerFeignClient;
 	}
 	
 	public Payment getPayment(Long workerId, Integer days) {
-		Map<String, String> uriVariable = new HashMap<String, String>();
-		uriVariable.put("id", workerId.toString());
-		
-		String url = HR_WORKER_HOST + "/workers/{id}";
-		
-		Worker worker = restTemplate.getForObject(url, Worker.class, uriVariable); 
+		Worker worker = workerClient.findById(workerId).getBody();
 		
 		return new Payment(worker.getName(), worker.getDailyIncome(), days);
 	}
