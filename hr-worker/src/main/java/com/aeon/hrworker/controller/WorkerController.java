@@ -16,26 +16,24 @@ import com.aeon.hrworker.repository.WorkerRepository;
 @RequestMapping("/api/v1/workers")
 public class WorkerController {
 
-	private WorkerRepository workRepo;
+	private WorkerRepository workerRepository;
 
 	public WorkerController(WorkerRepository workRepo) {
-		this.workRepo = workRepo;
+		this.workerRepository = workRepo;
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<Worker>> findAll() {
-		List<Worker> workList = workRepo.findAll();
+		List<Worker> workerList = workerRepository.findAll();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(workList);
+		return ResponseEntity.status(HttpStatus.OK).body(workerList);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Worker> findById(@PathVariable Long id) {
-		System.out.println(id);
-			
-		Worker work = workRepo.findById(id).get();
+		Worker worker = workerRepository.findById(id).get();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(work);
+		return ResponseEntity.status(HttpStatus.OK).body(worker);
 	}
 	
 }
