@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.aeon.hrpayroll.entity.Worker;
 
-
 @Component
 @FeignClient(name = "hr-worker", path = "/api/v1/workers")
 public interface WorkerFeignClient {
