@@ -1,9 +1,8 @@
-package entity;
+package com.aeon.hruser.entity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.management.relation.Role;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
