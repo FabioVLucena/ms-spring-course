@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aeon.hrworker.entity.Worker;
 import com.aeon.hrworker.repository.WorkerRepository;
 
-@RefreshScope
 @RestController
 @RequestMapping("/api/v1/workers")
 public class WorkerController {
 	
 	private static Logger logger = LoggerFactory.getLogger(WorkerController.class);
-	
-	@Value("${test.config}")
-	private String testConfig;
 	
 	private Environment environment;
 	
@@ -34,12 +28,6 @@ public class WorkerController {
 	public WorkerController(Environment environment, WorkerRepository workerRepo) {
 		this.environment = environment;
 		this.workerRepository = workerRepo;
-	}
-	
-	@GetMapping("/configs")
-	public ResponseEntity<Void> getConfigs() {
-		logger.info("CONFIG = " + testConfig);
-		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping
